@@ -12,7 +12,7 @@ Bu proje, Linux tabanlı sistemlerde kaynak kullanımını izleyen, kritik durum
 
 > **Tanıtım Videosunu izlemek için yukarıdaki görsele tıklayın.**
 
-📥 **[Proje Sunum Dosyasını İndir (.pptx)](Linux_Process_and_Disk_Manager.pptx?raw=true)**
+📥 **[Proje Sunum Dosyasını İndir (.pptx)](Linux_Process_and_Disk_Manager_Polat_Tren.pptx?raw=true)**
 
 ---
 
@@ -31,7 +31,7 @@ Bu proje, Linux tabanlı sistemlerde kaynak kullanımını izleyen, kritik durum
 * \`src/\`: Ana otomasyon scripti (\`main.sh\`) ve kurulum aracı (\`install.sh\`).
 * \`specs/\`: Proje meta verilerini içeren standart JSON dosyası.
 * \`researchs/\`: Geliştirme öncesi yapılan derinlemesine teknik araştırmalar.
-* \`Linux_Process_and_Disk_Manager.pptx\`: Projenin detaylı sunum dosyası.
+* \`Linux_Process_and_Disk_Manager_Polat_Tren.pptx\`: Projenin detaylı sunum dosyası.
 
 ---
 
