@@ -1,4 +1,3 @@
-cat > README.md <<EOF
 # 🐧 Linux Process & Disk Manager
 **İşletim Sistemleri Dersi Proje Ödevi** | **Hazırlayan:** Polat Tren
 
@@ -52,4 +51,3 @@ Bu proje; araştırma, analiz ve sunum süreçlerinde **Gemini, ChatGPT ve Kimi 
 
 ---
 **İstinye Üniversitesi • Bilgisayar Programcılığı**
-EOF
