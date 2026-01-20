@@ -1,0 +1,53 @@
+{
+  "project_info": {
+    "project_name": "Linux Process & Disk Manager",
+    "version": "1.0.0",
+    "description": "Otomatik süreç izleme, disk analizi ve sistem optimizasyonu sağlayan ileri seviye Bash otomasyon aracı.",
+    "authors": [
+      "Polat Tren"
+    ],
+    "repository": "https://github.com/polattren/linux-process-disk-manager",
+    "license": "MIT",
+    "technologies": [
+      "Bash Scripting",
+      "Linux Kernel Utils (ps, df, kill, flock)",
+      "Cron Jobs",
+      "Git & GitHub Actions"
+    ]
+  },
+  "specs": {
+    "core_features": [
+      {
+        "name": "Auto-Monitor",
+        "description": "Belirli aralıklarla CPU ve RAM kullanımını izler, eşik değer aşılırsa uyarı verir."
+      },
+      {
+        "name": "Disk-Cleaner",
+        "description": "Disk doluluk oranını analiz eder ve %90 üzeri dolulukta log/cache dosyalarını otomatik temizler."
+      },
+      {
+        "name": "Zombie-Killer",
+        "description": "Sistem kaynaklarını tüketen 'Zombie' süreçleri tespit eder ve sonlandırır."
+      },
+      {
+        "name": "HTML-Reporter",
+        "description": "Sistem durumunu anlık olarak görselleştiren responsive bir HTML raporu oluşturur."
+      }
+    ],
+    "requirements": {
+      "os": "Ubuntu 22.04 LTS or newer",
+      "permissions": "Root privileges (sudo)",
+      "dependencies": [
+        "bc",
+        "curl",
+        "systemd",
+        "cron"
+      ]
+    },
+    "configuration": {
+      "config_file": "config/settings.conf",
+      "log_dir": "/var/log/linux-manager",
+      "report_dir": "/var/www/html/status"
+    }
+  }
+}
