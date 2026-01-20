@@ -7,7 +7,7 @@ Bu proje, Linux tabanlı sistemlerde kaynak kullanımını izleyen, kritik durum
 
 ## 📺 Proje Tanıtım ve Sunum
 
-[![Proje Tanıtım Videosu](https://img.youtube.com/vi/fXyrsoY0WgM/0.jpg)](https://youtu.be/fXyrsoY0WgM)
+[![Proje Tanıtım Videosu](https://img.youtube.com/vi/2ITEi6EUJ-o/0.jpg)](https://youtu.be/2ITEi6EUJ-o)
 
 > **Tanıtım Videosunu izlemek için yukarıdaki görsele tıklayın.**
 
