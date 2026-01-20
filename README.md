@@ -1,5 +1,5 @@
 # 🐧 Linux Process & Disk Manager
-**İşletim Sistemleri Dersi Proje Ödevi** | **Hazırlayan:** Polat Tren
+**Açık Kaynak İşletim Sistemleri Dersi Proje Ödevi** | **Hazırlayan:** Polat Tren
 
 Bu proje, Linux tabanlı sistemlerde kaynak kullanımını izleyen, kritik durumlarda disk temizliği yapan ve sistem durumunu HTML olarak raporlayan profesyonel bir Bash otomasyon aracıdır.
 
