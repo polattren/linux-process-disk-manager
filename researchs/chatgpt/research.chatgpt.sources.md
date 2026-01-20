@@ -1,6 +1,8 @@
+```markdown
 # Kaynaklar ve Referanslar
-- https://man7.org/linux/man-pages/
-- https://www.kernel.org/doc/html/latest/
-- https://www.gnu.org/software/bash/manual/
-- https://tldp.org/LDP/abs/html/
-- https://www.linuxfromscratch.org/
+
+* [Linux Manual Pages (Man7.org)](https://man7.org/linux/man-pages/)
+* [The Linux Kernel Documentation](https://www.kernel.org/doc/html/latest/)
+* [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/)
+* [Advanced Bash-Scripting Guide (TLDP)](https://tldp.org/LDP/abs/html/)
+* [Linux From Scratch (LFS)](https://www.linuxfromscratch.org/)
