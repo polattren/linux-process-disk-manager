@@ -46,7 +46,6 @@ Bash scriptleri hafif ve özelleştirilebilirdir ancak karmaşık izleme ihtiya�
 * **Input Sanitization:** Dışarıdan parametre alan scriptlerde, kullanıcı girdisi asla doğrudan `eval` veya `rm` komutlarına sokulmamalıdır.
 * **Hardcoded Yollar:** Komutların tam yolları (`/bin/rm` gibi) kullanılmalı veya `$PATH` değişkeni script içinde güvenli bir şekilde tanımlanmalıdır.
 
-## EKSTRA (Sadece Gemini Modelleri İçin):
 Aşağıdaki akış şeması, disk ve süreç yönetimi yapan tipik bir otomasyon scriptinin mantıksal akışını göstermektedir.
 
 ```mermaid
