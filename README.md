@@ -12,7 +12,7 @@ Bu proje, Linux tabanlı sistemlerde kaynak kullanımını izleyen, kritik durum
 
 > **Tanıtım Videosunu izlemek için yukarıdaki görsele tıklayın.**
 
-📥 **[Proje Sunum Dosyasını İndir (.pptx)](Proje_Sunumu.pptx?raw=true)**
+📥 **[Proje Sunum Dosyasını İndir (.pptx)](Linux_Process_and_Disk_Manager.pptx?raw=true)**
 
 ---
 
