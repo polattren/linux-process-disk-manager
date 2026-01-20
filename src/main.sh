@@ -1,127 +1,88 @@
 #!/bin/bash
 #
-# Project: Linux Process & Disk Manager
-# Author: Polat Tren
-# Version: 1.0.0
-# Description: Sistem kaynaklarini izler, disk temizligi yapar ve HTML rapor sunar.
+# Linux Sistem Yonetim Araci
+# Polat Tren - Istinye Universitesi
 #
 
-# --- AYARLAR (CONFIGURATION) ---
-THRESHOLD_CPU=80        # CPU uyari siniri (%)
-THRESHOLD_DISK=90       # Disk temizlik siniri (%)
-LOG_FILE="/tmp/linux-manager.log"
-REPORT_FILE="/var/www/html/status/index.html" # Web sunucusu yoksa /tmp/report.html yapilabilir
-DATE=$(date '+%Y-%m-%d %H:%M:%S')
+# --- Degiskenler ve Ayarlar ---
+max_cpu=80              # CPU %80'i gecerse uyari versin
+max_disk=90             # Disk %90 dolarsa temizlesin
+log_dosyasi="/tmp/linux-manager.log"
+rapor_dosyasi="/var/www/html/status/index.html"
+tarih=$(date '+%d.%m.%Y %H:%M:%S')
 
-# --- RENKLER ---
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
-
-# Hata yakalama modu (Strict Mode)
-set -u
-
-# --- FONKSIYON: Loglama ---
-log_message() {
-    local TYPE=$1
-    local MSG=$2
-    echo -e "${DATE} [${TYPE}] ${MSG}" | tee -a "$LOG_FILE"
+# Loglama yapan basit bir fonksiyon
+log_yaz() {
+    mesaj="$1"
+    # Hem ekrana yazsin hem dosyaya kaydetsin
+    echo "[$tarih] $mesaj" | tee -a "$log_dosyasi"
 }
 
-# --- FONKSIYON: Kaynak Kontrolü ---
-check_resources() {
-    echo -e "${YELLOW}[*] Sistem kaynaklari kontrol ediliyor...${NC}"
-    
-    # CPU Kullanimi
-    CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}' | cut -d. -f1)
-    
-    # RAM Kullanimi
-    RAM_USAGE=$(free -m | awk '/Mem:/ { printf("%3.1f", $3/$2*100) }')
-    
-    log_message "INFO" "CPU: %${CPU_USAGE} | RAM: %${RAM_USAGE}"
+echo "--- Kontrol Basladi ---"
 
-    if [ "$CPU_USAGE" -gt "$THRESHOLD_CPU" ]; then
-        log_message "WARNING" "Yüksek CPU kullanimi tespit edildi! (%${CPU_USAGE})"
-    fi
-}
+# 1. CPU ve RAM KONTROLU
+# top ve free komutlariyla verileri cekiyorum
+cpu_kullanim=$(top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}' | cut -d. -f1)
+ram_kullanim=$(free -m | awk '/Mem:/ { printf("%3.1f", $3/$2*100) }')
 
-# --- FONKSIYON: Disk Temizligi ---
-clean_disk() {
-    echo -e "${YELLOW}[*] Disk analizi yapiliyor...${NC}"
-    
-    DISK_USAGE=$(df / | grep / | awk '{ print $5 }' | sed 's/%//g')
-    
-    log_message "INFO" "Disk Doluluk Orani: %${DISK_USAGE}"
+log_yaz "Mevcut Durum -> CPU: %$cpu_kullanim | RAM: %$ram_kullanim"
 
-    if [ "$DISK_USAGE" -gt "$THRESHOLD_DISK" ]; then
-        log_message "ALERT" "Disk kritik seviyede (%${DISK_USAGE})! Temizlik baslatiliyor..."
-        
-        # Apt cache temizle
-        apt-get clean 2>/dev/null
-        # Eski loglari sil (Örnek: 7 günden eski loglar)
-        find /var/log -type f -name "*.gz" -delete 2>/dev/null
-        
-        log_message "SUCCESS" "Disk temizligi tamamlandi."
-    else
-        echo -e "${GREEN}[OK] Disk durumu normal.${NC}"
-    fi
-}
+if [ "$cpu_kullanim" -gt "$max_cpu" ]; then
+    log_yaz "UYARI: CPU kullanimi cok yuksek! (% $cpu_kullanim)"
+fi
 
-# --- FONKSIYON: Zombie Süreç Avcisi ---
-kill_zombies() {
-    echo -e "${YELLOW}[*] Zombie süreçler araniyor...${NC}"
-    
-    ZOMBIES=$(ps aux | awk '{ print $8 " " $2 }' | grep -w Z)
-    
-    if [ -z "$ZOMBIES" ]; then
-        echo -e "${GREEN}[OK] Zombie süreç bulunamadi.${NC}"
-    else
-        ZOMBIE_COUNT=$(echo "$ZOMBIES" | wc -l)
-        log_message "WARNING" "${ZOMBIE_COUNT} adet Zombie süreç bulundu. Ebeveyn süreçler uyariyor..."
-        # Burada kill komutu eklenebilir, simdilik logluyoruz.
-    fi
-}
+# 2. DISK KONTROLU VE TEMIZLIK
+disk_doluluk=$(df / | grep / | awk '{ print $5 }' | sed 's/%//g')
 
-# --- FONKSIYON: HTML Raporu ---
-generate_report() {
-    # Rapor klasörü yoksa olustur
-    mkdir -p $(dirname "$REPORT_FILE")
+log_yaz "Disk Doluluk Orani: %$disk_doluluk"
+
+if [ "$disk_doluluk" -gt "$max_disk" ]; then
+    log_yaz "Disk dolmus, gereksiz dosyalari siliyorum..."
     
-    cat > "$REPORT_FILE" <<EOF
-<!DOCTYPE html>
+    # apt cache ve eski loglari temizle
+    apt-get clean 2>/dev/null
+    find /var/log -type f -name "*.gz" -delete 2>/dev/null
+    
+    log_yaz "Temizlik tamamlandi."
+else
+    echo "Disk durumu gayet iyi, temizlige gerek yok."
+fi
+
+# 3. ZOMBIE PROCESS KONTROLU
+# Z harfi ile isaretlenen olu surecleri bul
+zombie_sayisi=$(ps aux | awk '{ print $8 }' | grep -c Z)
+
+if [ "$zombie_sayisi" -gt 0 ]; then
+    log_yaz "DIKKAT: Sistemde $zombie_sayisi adet Zombie surec var!"
+else
+    echo "Zombie surec yok, sistem temiz."
+fi
+
+# 4. RAPOR OLUSTURMA (HTML)
+# Klasor yoksa olusturuyorum
+mkdir -p $(dirname "$rapor_dosyasi")
+
+# HTML kodunu buraya yaziyoruz
+cat > "$rapor_dosyasi" <<HTML
 <html>
 <head>
-    <title>Sistem Durum Raporu</title>
-    <style>
-        body { font-family: sans-serif; background: #1a1b26; color: #a9b1d6; padding: 20px; }
-        .card { background: #24283b; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
-        h1 { color: #7aa2f7; border-bottom: 2px solid #7aa2f7; }
-        .metric { font-size: 24px; font-weight: bold; color: #9ece6a; }
-    </style>
+    <title>Polat Tren - Sistem Raporu</title>
+    <meta charset="UTF-8">
 </head>
-<body>
-    <div class="card">
-        <h1>🐧 Linux Manager Raporu</h1>
-        <p>Tarih: $DATE</p>
-        <p>CPU Kullanımı: <span class="metric">%$CPU_USAGE</span></p>
-        <p>Disk Kullanımı: <span class="metric">%$DISK_USAGE</span></p>
-        <p>Son Log: $(tail -n 1 $LOG_FILE)</p>
+<body style="background-color: #f0f0f0; font-family: Arial;">
+    <div style="background: white; width: 50%; margin: 50px auto; padding: 20px; border-radius: 10px; border: 1px solid #ccc;">
+        <h2 style="color: #333;">🐧 Sistem Durum Raporu</h2>
+        <hr>
+        <p><b>Tarih:</b> $tarih</p>
+        <p><b>CPU Kullanımı:</b> %$cpu_kullanim</p>
+        <p><b>RAM Kullanımı:</b> %$ram_kullanim</p>
+        <p><b>Disk Durumu:</b> %$disk_doluluk</p>
+        <br>
+        <p style="font-size: 12px; color: gray;">Otomatik olusturulmustur.</p>
     </div>
 </body>
 </html>
-EOF
-    log_message "INFO" "HTML raporu olusturuldu: $REPORT_FILE"
-}
+HTML
 
-# --- ANA AKIŞ ---
-main() {
-    echo -e "${GREEN}=== Linux Process & Disk Manager Baslatildi ===${NC}"
-    check_resources
-    clean_disk
-    kill_zombies
-    generate_report
-    echo -e "${GREEN}=== Islem Tamamlandi ===${NC}"
-}
-
-main
+log_yaz "Rapor guncellendi: $rapor_dosyasi"
+echo "--- Islem Bitti ---"
