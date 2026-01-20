@@ -1,7 +1,17 @@
 # 🐧 Linux Process & Disk Manager
-**İşletim Sistemleri Dersi Proje Ödevi** | **Hazırlayan:** Polat Tren
+**Açık Kaynak İşletim Sistemleri Dersi Proje Ödevi** | **Hazırlayan:** Polat Tren
 
 Bu proje, Linux tabanlı sistemlerde kaynak kullanımını izleyen, kritik durumlarda disk temizliği yapan ve sistem durumunu HTML olarak raporlayan profesyonel bir Bash otomasyon aracıdır.
+
+---
+
+## 📺 Proje Tanıtım ve Sunum
+
+[![Proje Tanıtım Videosu](https://img.youtube.com/vi/2OhbRR3BzlU/0.jpg)](https://youtu.be/2OhbRR3BzlU)
+
+> **Tanıtım Videosunu izlemek için yukarıdaki görsele tıklayın.**
+
+📥 **[Proje Sunum Dosyasını İndir (.pptx)](Linux_Process_and_Disk_Manager_PolatTren.pptx)**
 
 ---
 
@@ -19,20 +29,18 @@ Bu proje, Linux tabanlı sistemlerde kaynak kullanımını izleyen, kritik durum
 ## 📂 Proje Yapısı
 * `src/`: Ana otomasyon scripti (`main.sh`) ve kurulum aracı (`install.sh`).
 * `specs/`: Proje meta verilerini içeren standart JSON dosyası.
-* `docs/`: AI destekli hazırlanan teknik sunum materyalleri.
 * `researchs/`: Geliştirme öncesi yapılan derinlemesine teknik araştırmalar.
+* `Proje_Sunumu.pptx`: Projenin detaylı sunum dosyası.
 
 ---
 
 ## 🛠️ Kurulum ve Kullanım
 
-Projenin kurulumu ve otomatik görevlerin aktif edilmesi oldukça basittir:
-
 ```bash
-# 1. Kurulumu başlat (İzinleri ayarlar ve Cron Job ekler)
+# 1. Kurulumu başlat
 ./src/install.sh
 
-# 2. Manuel kontrol için çalıştırma
+# 2. Manuel kontrol
 sudo ./src/main.sh
 ```
 
