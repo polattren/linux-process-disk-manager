@@ -54,7 +54,7 @@ Projeyi yerel makinenize klonlayın ve kurulum sihirbazını başlatın.
 
 ### 1. Projeyi İndirin
 ```bash
-git clone [https://github.com/polattren/linux-process-disk-manager.git](https://github.com/polattren/linux-process-disk-manager.git)
+git clone https://github.com/polattren/linux-process-disk-manager.git
 cd linux-process-disk-manager
 ```
 ### 2. Kurulumu Başlatın
