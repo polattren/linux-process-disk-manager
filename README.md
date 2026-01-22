@@ -14,6 +14,20 @@ Bu proje, Linux tabanlı sistemlerde kaynak kullanımını izleyen, kritik durum
 📥 **[Proje Sunum Dosyasını İndir (.pptx)](Linux_Process_and_Disk_Manager_PolatTren.pptx?raw=true)**
 
 ---
+## 📸 Proje Görselleri
+
+<div align="center">
+  <h3>1. Yönetici Terminal Arayüzü</h3>
+  <img src="img/menu_preview.png" alt="Terminal Menüsü" width="700">
+  <p><em>Kullanıcı dostu, renkli ve modüler terminal menüsü.</em></p>
+  
+  <br>
+  
+  <h3>2. HTML Sistem Sağlık Raporu</h3>
+  <img src="img/html_report_preview.png" alt="HTML Rapor Çıktısı" width="700">
+  <p><em>Sistem durumunu tarayıcı üzerinden analiz edebileceğiniz detaylı rapor.</em></p>
+</div>
+---
 
 ## ✨ Temel Özellikler
 | Özellik | Açıklama |
